@@ -6,6 +6,7 @@ import styles from '../styles/NavbarStyles.module.css'
 
 import { Avatar, Menu, MenuItem, Typography } from '@mui/material';
 import Link from 'next/link'
+import CreateIcon from '@mui/icons-material/Create';
 
 
 
@@ -14,13 +15,13 @@ const Navbar = () => {
 
   return (
     <div>
-      <AppBar position="fixed" style={{boxShadow: 'none', borderBottom: '1px solid #000000', background: '#fff', height: 60}}>
+      <AppBar position="fixed" style={{boxShadow: 'none', borderBottom: '1px solid #000000', background: '#fff', height: 65}}>
         <Toolbar>
           <div style={{display: 'flex', width: '100%'}}>
             <div>
-              <Typography style={{fontWeight: 'bold', fontFamily: `'Abril Fatface', 'cursive'`, color: '#000000', fontSize: 28, marginLeft: 30}}>
+              <Typography style={{fontWeight: 'bold',fontFamily: `'Roboto', 'sans-serif'`, color: '#000000', fontSize: 26, marginLeft: 30}}>
                 <Link href='/' style={{color: 'inherit', textDecoration: 'none'}}>
-                  Write It
+                  Blog App
                 </Link>
               </Typography>
             </div>

@@ -1,0 +1,9 @@
+.banner {
+    background: url('../utils/bannerImg-min.jpg') center/100% repeat-x #000;
+    width: 100%;
+    object-fit: cover;
+    /* color: #fff;  */
+    padding-top: 30;
+    padding-bottom: 60;
+    background-size: cover;
+}

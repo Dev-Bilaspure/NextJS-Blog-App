@@ -1,0 +1,44 @@
+.titleTextField {
+  overflow-wrap: break-word;
+  width: 100%;
+  border: none;
+  font-size: 45px;
+  font-family: 'Lora', serif;
+  line-height: 60px;
+  resize: none;
+  border-left: 1px solid rgb(105, 105, 105);
+  padding-left: 3px;
+  margin-bottom: 30px;
+}
+.titleTextField:focus {
+  outline: none;
+  border-left: 0px solid rgb(172, 172, 172);
+  border-bottom: 1px solid rgb(105, 105, 105);
+  width: 99%;
+}
+
+.discriptionField {
+  overflow-wrap: break-word;
+  width: 100%;
+  border: none;
+  /* '&:focus': {
+    outline: 'none !important',
+    borderLeft: '1px solid rgb(208, 208, 208)',
+    borderRight: '1px solid rgb(208, 208, 208)',
+    width: '99%'
+  }, */
+  resize: none;
+  font-family: 'Faustina', serif;
+  font-size: 21px;
+  line-height: 1.5;
+  letter-spacing: 0.7;
+  min-height: 400px;
+  margin-bottom: 60px;
+}
+
+.discriptionField:focus {
+  outline: none;
+  border-left: 1px solid rgb(208, 208, 208);
+  border-right: 1px solid rgb(208, 208, 208);
+  width: 99%
+}
