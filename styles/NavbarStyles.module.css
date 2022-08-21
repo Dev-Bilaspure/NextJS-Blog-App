@@ -1,3 +1,19 @@
 .basicMenuAvatar:hover {
     cursor: pointer;
 }
+
+
+.navbarLeft {
+  margin-left: 30px;
+}
+.navbarRight {
+  margin-right: 40px;
+}
+@media screen and (max-width: 600px) {
+  .navbarLeft {
+    margin-left: 0px;
+  }
+  .navbarRight {
+    margin-right: 0px;
+  }
+}

@@ -19,30 +19,33 @@ const Navbar = () => {
         <Toolbar>
           <div style={{display: 'flex', width: '100%'}}>
             <div>
-              <Typography style={{fontWeight: 'bold',fontFamily: `'Roboto', 'sans-serif'`, color: '#000000', fontSize: 26, marginLeft: 30}}>
+              <Typography style={{fontWeight: 'bold',fontFamily: `'Roboto', 'sans-serif'`, color: '#000000', fontSize: 26}} className={styles.navbarLeft}>
                 <Link href='/' style={{color: 'inherit', textDecoration: 'none'}}>
                   Blog App
                 </Link>
               </Typography>
             </div>
-            {
-              !user ? 
-              <div style={{marginLeft: 'auto', marginRight: 0, display: 'flex', paddingTop: 7}}>
-                <Typography style={{color: '#000000', fontSize: 17, marginRight: 40}}>
-                  <Link href='/auth/login' style={{color: 'inherit', textDecoration: 'none'}}>
-                    <a>Login</a>
-                  </Link>
-                </Typography>
-                <Typography style={{color: '#000000', fontSize: 17, marginRight: 40}}>
-                  <Link href='/auth/signup' style={{color: 'inherit', textDecoration: 'none'}}>
-                    <a>Signup</a>
-                  </Link>
-                </Typography>
-              </div> :
-              <div style={{marginLeft: 'auto', marginRight: 0, paddingTop: 0, marginRight: 40}}>
-                <BasicMenu />
-              </div>
-            }
+            {/* <div className={styles.navbarRight}> */}
+              {
+                !user ? 
+                <div style={{marginLeft: 'auto', display: 'flex', paddingTop: 7}}>
+                  <Typography style={{color: '#000000', fontSize: 17, marginRight: 40}}>
+                    <Link href='/auth/login' style={{color: 'inherit', textDecoration: 'none'}}>
+                      <a>Login</a>
+                    </Link>
+                  </Typography>
+                  <Typography style={{color: '#000000', fontSize: 17}} className={styles.navbarRight}>
+                    <Link href='/auth/signup' style={{color: 'inherit', textDecoration: 'none'}}>
+                      <a>Signup</a>
+                    </Link>
+                  </Typography>
+                </div> :
+                <div style={{marginLeft: 'auto', paddingTop: 0}} className={styles.navbarRight}>
+                  <BasicMenu />
+                </div>
+              }
+            {/* </div> */}
+            
             
           </div>
           

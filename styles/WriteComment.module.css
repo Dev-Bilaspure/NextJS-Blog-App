@@ -1,0 +1,20 @@
+.commentTextField {
+  overflow-wrap: break-word;
+  width: 100%;
+  border: none;
+  font-size: 15px;
+  font-family: 'Lora', serif;
+  line-height: 18px;
+  resize: none;
+  border-bottom: 1px solid rgb(180, 180, 180);
+  padding-left: 3px;
+  padding-bottom: 7px;
+  font-family: 'Roboto', sans-serif;
+  /* margin-bottom: 30px; */
+}
+.commentTextField:focus {
+  outline: none;
+  /* border-left: 0px solid rgb(172, 172, 172); */
+  border-bottom: 1px solid rgb(80, 80, 80);
+  /* width: 99%; */
+}

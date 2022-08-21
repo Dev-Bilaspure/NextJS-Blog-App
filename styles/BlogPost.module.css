@@ -1,0 +1,45 @@
+.titleStyle {
+  font-size: 40px;
+}
+
+.descriptionStyle {
+  font-size: 17px;
+}
+
+.authorStyle {
+  font-size: 17px;
+}
+
+@media screen and (max-width: 800px) {
+
+  .titleStyle {
+    font-size: 38px;
+  }
+  
+  .descriptionStyle {
+    font-size: 16px;
+  }
+  
+  .authorStyle {
+    font-size: 16px;
+  }
+  
+}
+@media screen and (max-width: 600px) {
+  .topDivStyles {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+  .titleStyle {
+    font-size: 35px;
+  }
+  
+  .descriptionStyle {
+    font-size: 15px;
+  }
+  
+  .authorStyle {
+    font-size: 15px;
+  }
+  
+}

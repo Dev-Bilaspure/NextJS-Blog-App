@@ -3,7 +3,7 @@
   width: 100%;
   border: none;
   font-size: 45px;
-  font-family: 'Lora', serif;
+  font-family: 'Source Sans Pro', sans-serif;
   line-height: 60px;
   resize: none;
   border-left: 1px solid rgb(105, 105, 105);
@@ -28,7 +28,7 @@
     width: '99%'
   }, */
   resize: none;
-  font-family: 'Faustina', serif;
+  font-family: 'Roboto', sans-serif;
   font-size: 21px;
   line-height: 1.5;
   letter-spacing: 0.7;
