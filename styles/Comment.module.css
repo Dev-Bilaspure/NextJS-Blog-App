@@ -1,4 +1,13 @@
 .readmore:hover {
-    cursor: pointer;
-    text-decoration: underline;
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.threedots {
+  height: 20px;
+  margin-top: 8px;
+}
+
+.threedots:hover {
+  cursor: pointer;
 }

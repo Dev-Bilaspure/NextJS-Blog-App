@@ -19,7 +19,7 @@ const Navbar = () => {
         <Toolbar>
           <div style={{display: 'flex', width: '100%'}}>
             <div>
-              <Typography style={{fontWeight: 'bold',fontFamily: `'Roboto', 'sans-serif'`, color: '#000000', fontSize: 26}} className={styles.navbarLeft}>
+              <Typography style={{fontWeight: 'bold',fontFamily: `'Roboto', 'sans-serif'`, color: 'rgb(60, 60, 60)', fontSize: 26}} className={styles.navbarLeft}>
                 <Link href='/' style={{color: 'inherit', textDecoration: 'none'}}>
                   Blog App
                 </Link>

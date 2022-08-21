@@ -1,9 +1,10 @@
-import { Grid, Typography } from '@mui/material'
-import React from 'react'
+import { Grid, Menu, MenuItem, Typography } from '@mui/material'
+import React, { useState } from 'react'
 import Comments from '../../components/Comments'
 import Navbar from '../../components/Navbar'
 import WriteComment from '../../components/WriteComment'
 import styles from '../../styles/BlogPost.module.css'
+import MoreVertIcon from '@mui/icons-material/MoreVert';
 
 const blogID = () => {
   const title = 'Welcome to my Blog, India'
@@ -23,9 +24,14 @@ const blogID = () => {
               <Typography style={{ fontFamily: `'Source Sans Pro', 'sans-serif'`, marginBottom: 5}} className={styles.titleStyle}>
                 {title}
               </Typography>
-              <Typography style={{fontFamily: `'Roboto Condensed', 'sans-serif'`, marginBottom: 25}} className={styles.authorStyle} >
-                Author: {author}
-              </Typography>
+              <div style={{display: 'flex'}}>
+                <Typography style={{fontFamily: `'Roboto Condensed', 'sans-serif'`, marginBottom: 25}} className={styles.authorStyle} >
+                  Author: {author}
+                </Typography>
+                <div style={{marginLeft: 'auto'}} className={styles.threeDots}>
+                  <BasicMenu />
+                </div>
+              </div>
               <Typography style={{fontFamily: `'Roboto', 'sans-serif'`}}  className={styles.descriptionStyle}>
                 {description}
               </Typography>
@@ -47,6 +53,57 @@ const blogID = () => {
           </Grid>
         </Grid>
       </div>
+    </div>
+  )
+}
+
+
+
+const BasicMenu = () => {
+  const [anchorEl, setAnchorEl] = useState(null);
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  }
+  const handleClose = () => {
+    setAnchorEl(null);
+  }
+  const open = Boolean(anchorEl);
+  const handleDeleteBlog = () => {
+    console.log("delete blog ");
+  }
+  const handleEditBlog = () => {
+    console.log("edit blog ");
+  }
+  return(
+    <div>
+      <MoreVertIcon 
+        onClick={handleClick}
+        style={{color: 'rgb(50, 50, 50)'}}
+      />
+      <Menu
+        id="basic-menu"
+        anchorEl={anchorEl}
+        open={open}
+        onClose={handleClose}
+        // MenuListProps={{
+        //   'aria-labelledby': 'basic-button',
+        // }}
+        style={{marginTop: 6}}
+      >
+        <MenuItem style={{paddingLeft: 25, paddingRight: 20, background: '#fff', borderBottom: '1px solid rgb(200, 200, 200)', borderTop: '1px solid rgb(200, 200, 200)'}} onClick={handleDeleteBlog}>
+          <Typography style={{color: '#000000', paddingRight: 10, color: '#FE1A1B', fontSize: 15}}>
+            Delete
+          </Typography>
+        </MenuItem>
+        <MenuItem style={{paddingLeft: 25, paddingRight: 20, background: '#fff', borderBottom: '1px solid rgb(200, 200, 200)'}} onClick={handleEditBlog}>
+          <Typography style={{color: '#000000', paddingRight: 10, color: 'rgb(60, 60, 60)', fontSize: 15}}>
+            Edit
+          </Typography>
+        </MenuItem>
+        {/* <Button variant='contained' style={{background: '#fff', color: 'rgb(255, 1, 1)', boxShadow: 'none'}}>
+          Delete
+        </Button> */}
+      </Menu>
     </div>
   )
 }

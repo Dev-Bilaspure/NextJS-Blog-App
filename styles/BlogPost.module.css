@@ -1,5 +1,6 @@
 .titleStyle {
   font-size: 40px;
+  color: rgb(60, 60, 60);
 }
 
 .descriptionStyle {
@@ -8,6 +9,9 @@
 
 .authorStyle {
   font-size: 17px;
+}
+.threeDots:hover {
+  cursor: pointer;
 }
 
 @media screen and (max-width: 800px) {
@@ -27,8 +31,8 @@
 }
 @media screen and (max-width: 600px) {
   .topDivStyles {
-    padding-left: 20px;
-    padding-right: 20px;
+    padding-left: 15px;
+    padding-right: 15px;
   }
   .titleStyle {
     font-size: 35px;
