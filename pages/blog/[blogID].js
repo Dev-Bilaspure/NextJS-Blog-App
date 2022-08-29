@@ -1,14 +1,23 @@
 import { Grid, Menu, MenuItem, Typography } from '@mui/material'
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import Comments from '../../components/Comments'
 import Navbar from '../../components/Navbar'
 import WriteComment from '../../components/WriteComment'
 import styles from '../../styles/BlogPost.module.css'
 import MoreVertIcon from '@mui/icons-material/MoreVert';
+import axios from "axios";
+import { parseCookies } from 'nookies'
+import { UserContext } from '../../Context/UserContext'
+import { ApolloClient, gql, InMemoryCache } from '@apollo/client'
+import { useRouter } from 'next/router'
 
-const blogID = () => {
-  const title = 'Welcome to my Blog, India'
-  const description = 'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Aliquam quibusdam rerum ratione eveniet nulla repudiandae impedit unde, dolorum natus. Magnam architecto eos in molestias repellat minus reprehenderit! Ipsum, veniam. Aperiam porro amet voluptas deserunt ratione unde labore, omnis dolorum sequi at rerum deleniti. Nesciunt veniam maiores assumenda dolorem quas explicabo ullam facere minima fugiat nam non, qui officia eligendi iure distinctio ipsam repellendus mollitia sint cupiditate porro labore officiis! Dolorem officiis, in quidem nesciunt enim odio autem placeat voluptatem tempore cumque aperiam optio at nihil laudantium repellat sit dolorum impedit repellendus, porro delectus eos quaerat? Velit voluptate odit amet nam. '
+
+
+const blogID = ({blogData}) => {
+  const {currentUser} = useContext(UserContext);
+  console.log('from blogid', currentUser);
+  const title = blogData.attributes.title
+  const description = blogData.attributes.description
   const author = 'Dev Bilaspure';
   const comments = [];
   return (
@@ -41,7 +50,7 @@ const blogID = () => {
                 {comments.length} Comments
               </Typography>
               <div>
-                <WriteComment />
+                <WriteComment blogID={blogData.id} />
               </div>
               <div style={{marginTop: 70, marginBottom: 70, paddingLeft: 10, paddingRight: 10}}>
                 <Comments />
@@ -107,5 +116,33 @@ const BasicMenu = () => {
     </div>
   )
 }
+
+// export async function getStaticProps() {
+//   const router = useRouter();
+//   const { blogID } = router.query;
+//   const client = new ApolloClient({
+//     uri: 'localhost:1337/api/graphql',
+//     cache: new InMemoryCache()
+//   })
+//   const { data } = await client.query({ query: GET_BLOG_BY_ID(blodID), variables: {id: blogID} });
+//   console.log(data.blogpost.data);
+//   return {
+//     props: {
+//       blogData: data.blogpost.data
+//     }
+//   }
+// }
+
+export const getServerSideProps = async (ctx) => {
+  const blogDataRes = await axios.get(`http://localhost:1337/api/blogposts/${ctx.params.blogID}`);
+  
+  
+  return {
+    props: { 
+      blogData: blogDataRes.data.data
+    },
+  };
+};
+
 
 export default blogID
