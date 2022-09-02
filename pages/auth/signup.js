@@ -1,11 +1,11 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Router, { useRouter } from 'next/router'
 import Navbar from '../../components/Navbar'
 import styles from '../../styles/NavbarStyles.module.css'
 import { Typography, Paper, Button, LinearProgress } from '@mui/material'
 import Link from 'next/link'
 import axios from 'axios'
-import { UserContext } from '../../Context/UserContext'
+import Layout from '../../components/Layout'
 
 const signup = () => {
   const [email, setEmail] = useState('');
@@ -52,8 +52,8 @@ const signup = () => {
     }
   }
   return (
+    <Layout>
     <div>
-      <Navbar />
       <div style={{marginTop: 120, paddingLeft: 10, paddingRight: 10}}>
         <Paper elevation={10} style={{width: 300, margin: 'auto', paddingTop: 15, marginBottom: 50}}>
           <div style={{paddingLeft: 15, paddingRight: 23, paddingBottom: 20}}>
@@ -163,6 +163,7 @@ const signup = () => {
         
       </div>
     </div>
+    </Layout>
   )
 }
 

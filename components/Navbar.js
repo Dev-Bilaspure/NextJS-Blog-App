@@ -1,29 +1,30 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import LogoutIcon from '@mui/icons-material/Logout';
 import styles from '../styles/NavbarStyles.module.css'
-
+import CreateIcon from '@mui/icons-material/Create';
+import MenuBookIcon from '@mui/icons-material/MenuBook';
 import { Avatar, Grid, Menu, MenuItem, Typography } from '@mui/material';
 import Link from 'next/link'
-import CreateIcon from '@mui/icons-material/Create';
-import { destroyCookie, parseCookies } from 'nookies';
+import { checkUserLoggedIn, getUserFromLocalCookie, getUsersNameFromLocalCookie, unsetToken } from '../lib/auth';
+import Cookies from 'js-cookie';
 import Router from 'next/router';
-import { UserContext } from '../Context/UserContext';
 
 
 
 const Navbar = () => {
-  const {currentUser} = useContext(UserContext);
-  console.log('dedededed', currentUser)
-  const handleLogout = () => {
-    destroyCookie(null, 'jwt');
-    console.log('logout');
-    Router.push('/auth/login');
-  }
+  const [isUserLoggedIn, setIsUserLoggedIn] = useState(false);
+  const usersname = getUsersNameFromLocalCookie();
+  const user = getUserFromLocalCookie();
+
+  useEffect(() => {
+    setIsUserLoggedIn(checkUserLoggedIn());
+  }, [])
 
 
-  // const user = false;
+  // console.log({userfrombnabbar: {type: typeof(Cookies.get('abc')), user}})
+  // const isUserLoggedIn = user ? true : false;/
 
   return (
     <div>
@@ -39,8 +40,13 @@ const Navbar = () => {
             </div>
             {/* <div className={styles.navbarRight}> */}
               {
-                !currentUser.isUserLoggedIn? 
+                !isUserLoggedIn? 
                 <div style={{marginLeft: 'auto', display: 'flex', paddingTop: 7}}>
+                  <Typography style={{color: '#000000', fontSize: 17, marginRight: 40}} className={styles.readButton}>
+                    <Link href='/blogs' style={{color: 'inherit', textDecoration: 'none'}}>
+                      <a>Read</a>
+                    </Link>
+                  </Typography>
                   <Typography style={{color: '#000000', fontSize: 17, marginRight: 40}}>
                     <Link href='/auth/login' style={{color: 'inherit', textDecoration: 'none'}}>
                       <a>Login</a>
@@ -52,24 +58,36 @@ const Navbar = () => {
                     </Link>
                   </Typography>
                 </div> :
-                <div style={{marginLeft: 'auto', paddingTop: 0}} className={styles.navbarRight}>
-                  <BasicMenu handleLogout={handleLogout} currentUser={currentUser}/>
+                <div style={{marginLeft: 'auto', display: 'flex'}} className={styles.navbarRight}>
+                  <Typography style={{color: '#000000', fontSize: 17, marginRight: 40, paddingTop: 7}} className={styles.readButton}>
+                    <Link href='/blogs' style={{color: 'inherit', textDecoration: 'none'}}>
+                      <a>Read</a>
+                    </Link>
+                  </Typography>
+                  <BasicMenu usersname={usersname} user={user}/>
                 </div>
               }
             {/* </div> */}
-            
-            
           </div>
-          
         </Toolbar>
       </AppBar>
     </div>
   )
 }
 
-const BasicMenu = ({handleLogout, currentUser}) => {
+const BasicMenu = ({usersname, user}) => {
   
-  // console.log("from navbar", currentUser);
+  const handleLogout = () => {
+    unsetToken();
+  }
+
+  const handleWrite = () => {
+    Router.push('/write');
+  }
+  
+  const handleReadBlogs = () => {
+    Router.push('/blogs');
+  }
 
   const [anchorEl, setAnchorEl] = useState(null);
   const handleClick = (event) => {
@@ -108,16 +126,34 @@ const BasicMenu = ({handleLogout, currentUser}) => {
             </Grid>
             <Grid item>
               <Typography style={{paddingLeft: 12, fontSize: 16, paddingTop: 2}}>
-                {currentUser.name}
+                {usersname}
               </Typography>
               <Typography style={{paddingLeft: 12, fontSize: 15, color: 'rgb(90, 90, 90)'}}>
-                {`@${currentUser.username}`}
+                {`@${user}`}
               </Typography>
             </Grid>
           </Grid>
         </MenuItem>
         <MenuItem 
           style={{paddingTop: 10, paddingBottom: 10, marginBottom: 10, paddingLeft: 35, paddingRight: 20, background: '#fff', borderBottom: '1px solid rgb(200, 200, 200)',}} 
+          onClick={handleWrite}
+        >
+          <Typography style={{color: '#000000', paddingRight: 10}}>
+            Write
+          </Typography>
+          <CreateIcon style={{color: 'rgb(123,123,123)', float: 'right', paddingLeft: 0}}/>
+        </MenuItem>
+        <MenuItem 
+          style={{paddingTop: 0, paddingBottom: 10, marginBottom: 10, paddingLeft: 35, paddingRight: 20, background: '#fff', borderBottom: '1px solid rgb(200, 200, 200)',}} 
+          onClick={handleReadBlogs}
+        >
+          <Typography style={{color: '#000000', paddingRight: 10}}>
+            Read
+          </Typography>
+          <MenuBookIcon style={{color: 'rgb(123,123,123)', float: 'right', paddingLeft: 0}}/>
+        </MenuItem>
+        <MenuItem 
+          style={{paddingTop: 0, paddingBottom: 10, marginBottom: 10, paddingLeft: 35, paddingRight: 20, background: '#fff', borderBottom: '1px solid rgb(200, 200, 200)',}} 
           onClick={handleLogout}
         >
           <Typography style={{color: '#000000', paddingRight: 10}}>

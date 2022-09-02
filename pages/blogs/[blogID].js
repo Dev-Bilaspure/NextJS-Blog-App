@@ -1,5 +1,5 @@
 import { Grid, Menu, MenuItem, Typography } from '@mui/material'
-import React, { useContext, useState } from 'react'
+import React, {  useState } from 'react'
 import Comments from '../../components/Comments'
 import Navbar from '../../components/Navbar'
 import WriteComment from '../../components/WriteComment'
@@ -7,22 +7,21 @@ import styles from '../../styles/BlogPost.module.css'
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import axios from "axios";
 import { parseCookies } from 'nookies'
-import { UserContext } from '../../Context/UserContext'
 import { ApolloClient, gql, InMemoryCache } from '@apollo/client'
 import { useRouter } from 'next/router'
+import Layout from '../../components/Layout'
 
 
 
 const blogID = ({blogData}) => {
-  const {currentUser} = useContext(UserContext);
-  console.log('from blogid', currentUser);
   const title = blogData.attributes.title
   const description = blogData.attributes.description
   const author = 'Dev Bilaspure';
   const comments = [];
+
   return (
+    <Layout>
     <div>
-      <Navbar />
       <div style={{marginTop: 100}} className={styles.topDivStyles}>
         <Grid container>
           <Grid item lg={2} md={1} sm={1}>
@@ -63,6 +62,7 @@ const blogID = ({blogData}) => {
         </Grid>
       </div>
     </div>
+    </Layout>
   )
 }
 

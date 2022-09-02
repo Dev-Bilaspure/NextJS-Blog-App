@@ -1,30 +1,27 @@
 import { Avatar, Button, CircularProgress, TextareaAutosize } from '@mui/material'
-import React, { useContext, useState } from 'react'
+import React, {  useState } from 'react'
 import styles from '../styles/WriteComment.module.css';
 import { useRouter } from 'next/router'
 import { parseCookies } from 'nookies';
 import axios from 'axios';
 import { v4 as uuidv4 } from 'uuid';
-import { UserContext } from '../Context/UserContext';
 
 const WriteComment = ({blogID}) => {
   const [comment, setComment] = useState('');
   const [isProcessing, setIsProcessing] = useState(false);
 
-  const {currentUser} = useContext(UserContext);
   const router = useRouter();
-
 
   const handleClickComment = async() => {
     setIsProcessing(true);
     const jwt = parseCookies().jwt;
     console.log('jwt here from writeComment: ' + jwt);
-    if(currentUser.isUserLoggedIn) {
+    if(user) {
       console.log({blogID});
       if(comment) {
         const data = {
           description: comment,
-          author: currentUser.id,
+          author: user.id,
           blogpost: blogID
         }
         try {

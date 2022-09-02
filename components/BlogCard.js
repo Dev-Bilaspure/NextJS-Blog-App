@@ -10,7 +10,7 @@ const BlogCard = ({blog}) => {
   const author = 'Dev Bilaspure'
   return (
     <div style={{paddingRight: 30, marginBottom: 30}}>
-      <Link href={`/blog/${blog.id}`}>
+      <Link href={`/blogs/${blog.id}`}>
         <a>
           <Paper elevation={5}>
             <div style={{padding: 10, paddingLeft: 20, paddingRight: 20, paddingTop: 10, paddingBottom: 20}}>
