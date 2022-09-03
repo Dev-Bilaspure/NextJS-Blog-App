@@ -10,7 +10,7 @@ const Comment = ({comment}) => {
   const [fullRead, setFullRead] = useState(false);
   const authorname = comment.attributes.author.data.attributes.name;
   const parsedDate = DateTime.fromISO(comment.attributes.createdAt).toFormat('ff');
-  console.log(comment)
+  // console.log(comment)
   const commentdescription = comment.attributes.description;
 
   const userID = getIdFromLocalCookie();
@@ -76,7 +76,7 @@ const BasicMenu = () => {
   }
   const open = Boolean(anchorEl);
   const handleDeleteComment = () => {
-    console.log("logout ");
+    // console.log("logout ");
   }
   return(
     <div>

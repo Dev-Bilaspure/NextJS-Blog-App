@@ -2,7 +2,7 @@
 const nextConfig = {
   reactStrictMode: true,
   swcMinify: true,
-  // redirects: async() => {
+  // //redirects: async() => {
   //   return([
   //     {
   //       source: '/',

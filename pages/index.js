@@ -1,8 +1,8 @@
 import Layout from "../components/Layout";
 
 export default function Home() {
-  console.log();
-  console.log('hell')
+  // console.log();
+  // console.log('hell')
   return (
     <Layout >
       <div style={{marginTop: 120}}>

@@ -15,7 +15,7 @@ import styles from '../../styles/Home.module.css';
 // import router from 'next/router'
 
 export default function Home({blogs}) {
-  console.log('myblogggg', blogs);
+  // console.log('myblogggg', blogs);
   return (
     <Layout>
     <div>

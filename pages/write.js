@@ -39,17 +39,17 @@ const write = () => {
         const { id } = res.data.data;
         if(id)
           setIsProcessing(false);
-        console.log('posted blog', { id });
+        // console.log('posted blog', { id });
 
         router.push(`/blogs/${id}`);
 
       } catch(error) {
-        console.log(error);
+        // console.log(error);
         setIsProcessing(false);
       }
     }
     else {
-      console.log('title or descrription is too  short');
+      // console.log('title or descrription is too  short');
     }
   }
   return (

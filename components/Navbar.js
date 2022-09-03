@@ -23,7 +23,7 @@ const Navbar = () => {
   }, [])
 
 
-  // console.log({userfrombnabbar: {type: typeof(Cookies.get('abc')), user}})
+  // // console.log({userfrombnabbar: {type: typeof(Cookies.get('abc')), user}})
   // const isUserLoggedIn = user ? true : false;/
 
   return (

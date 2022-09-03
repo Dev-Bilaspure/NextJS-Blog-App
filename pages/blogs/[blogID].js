@@ -82,10 +82,10 @@ const BasicMenu = () => {
   }
   const open = Boolean(anchorEl);
   const handleDeleteBlog = () => {
-    console.log("delete blog ");
+    // console.log("delete blog ");
   }
   const handleEditBlog = () => {
-    console.log("edit blog ");
+    // console.log("edit blog ");
   }
   return(
     <div>

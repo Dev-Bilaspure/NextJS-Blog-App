@@ -17,8 +17,8 @@ const login = () => {
   const [errors, setErrors] = useState([]);
   
   // const user = Cookies.get('abc');
-  // console.log({user});
-  // console.log({pathnameD: Router.pathname})
+  // // console.log({user});
+  // // console.log({pathnameD: Router.pathname})
 
   // useEffect(() => {
   //   const user = getUserFromLocalCookie();
@@ -34,14 +34,14 @@ const login = () => {
         identifier: email,
         password
       })
-      console.log(res.data);
+      // console.log(res.data);
 
       setToken(res.data);
 
       setIsProcessing(false);
 
     } catch(error) {
-      console.log(error);
+      // console.log(error);
       setErrors(error.response.data.error.details.errors)
       setIsProcessing(false);
     }

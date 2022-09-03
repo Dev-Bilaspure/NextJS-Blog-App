@@ -39,7 +39,7 @@ const signup = () => {
             name, username, email, password
           }
         )
-        console.log(res.data);
+        // console.log(res.data);
         router.push('/auth/login');
         setIsProcessing(false);
       }
@@ -47,7 +47,7 @@ const signup = () => {
         setIsProcessing(false);
         setErrorMessage(error.response.data.error.message);
         setErrors(error.response.data.error.details.errors);
-        console.log(error);
+        // console.log(error);
       }
     }
   }

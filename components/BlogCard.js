@@ -4,7 +4,7 @@ import styles from '../styles/BlogCard.module.css'
 import { DateTime } from 'luxon';
 
 const BlogCard = ({blog}) => {
-  console.log(blog);
+  // console.log(blog);
   const title = blog.attributes.title
   const description = blog.attributes.description
   const author = blog.attributes.author.data.attributes.name

@@ -17,10 +17,10 @@ const WriteComment = ({blogID, handleAddCommentToList}) => {
   const name = getUsersNameFromLocalCookie();
 
   const handleClickComment = async() => {
-    console.log({somedata: {userID, jwt, isUserLoggedIn}})
+    // console.log({somedata: {userID, jwt, isUserLoggedIn}})
     setIsProcessing(true);
     if(isUserLoggedIn) {
-      console.log({blogID});
+      // console.log({blogID});
       if(comment) {
         const data = {
           description: comment,
@@ -57,14 +57,14 @@ const WriteComment = ({blogID, handleAddCommentToList}) => {
 
           handleAddCommentToList(commentData);
 
-          console.log(res.data.data);
+          // console.log(res.data.data);
 
           setComment('');
           setIsProcessing(false);
         }
         catch(error) {
           setIsProcessing(false);
-          console.log(error);
+          // console.log(error);
         }
         
       }
