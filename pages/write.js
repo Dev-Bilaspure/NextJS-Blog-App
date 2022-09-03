@@ -4,9 +4,8 @@ import Navbar from "../components/Navbar";
 import styles from '../styles/WritePageStyles.module.css';
 import { useRouter } from "next/router";
 import axios from "axios";
-import { parseCookies } from "nookies";
 import Layout from "../components/Layout";
-import { getTokenFromLocalCookie } from "../lib/auth";
+import { checkUserLoggedIn, getIdFromLocalCookie, getTokenFromLocalCookie } from "../lib/auth";
 
 const write = () => {
   const [title, setTitle] = useState('');
@@ -14,15 +13,18 @@ const write = () => {
   const [isProcessing, setIsProcessing] = useState(false);
 
   const jwt = getTokenFromLocalCookie();
-
+  const isUserLoggedIn = checkUserLoggedIn();
+  const userID = getIdFromLocalCookie();
+  
+  const router = useRouter();
 
   const handlePublishBlog = async() => {
-    if(title.length>=3 && description.length>=5 && !isProcessing) {
+    if(isUserLoggedIn && title.length>=3 && description.length>=5 && !isProcessing) {
       setIsProcessing(true);
       const data = {
         title,
         description,
-        author: user.id
+        author: userID
       }
       try {
         const res = await axios.post(
@@ -39,7 +41,7 @@ const write = () => {
           setIsProcessing(false);
         console.log('posted blog', { id });
 
-        router.push(`/blog/${id}`);
+        router.push(`/blogs/${id}`);
 
       } catch(error) {
         console.log(error);

@@ -8,7 +8,7 @@ import MenuBookIcon from '@mui/icons-material/MenuBook';
 import { Avatar, Grid, Menu, MenuItem, Typography } from '@mui/material';
 import Link from 'next/link'
 import { checkUserLoggedIn, getUserFromLocalCookie, getUsersNameFromLocalCookie, unsetToken } from '../lib/auth';
-import Cookies from 'js-cookie';
+// import Cookies from 'js-cookie';
 import Router from 'next/router';
 
 

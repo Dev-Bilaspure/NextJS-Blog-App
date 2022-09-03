@@ -1,14 +1,19 @@
 import { Button, Menu, MenuItem, Typography } from '@mui/material'
 import React, { useState } from 'react'
+import Date from 'date-and-time'
 import styles from '../styles/Comment.module.css'
 import MoreVertIcon from '@mui/icons-material/MoreVert';
+import { DateTime } from 'luxon';
+import { getIdFromLocalCookie } from '../lib/auth';
 
-const Comment = () => {
-  const authorname = 'Dev Bilaspure'
-  const date = '20th Aug 2018'
-  const commentdescription = 'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Harum accusamus voluptates dolores? Sint saepe nihil pariatur eaque ullam architecto facere ipsum necessitatibus officiis sit magnam cupiditate possimus ad modi nam similique, officia consectetur velit soluta voluptas reiciendis fuga iure! Fugiat sequi reiciendis atque ex, quos eaque. Quae cupiditate dolores possimus ea, veritatis, velit officiis nobis facilis incidunt mollitia voluptates amet voluptate doloremque nam nisi quis culpa. Impedit, ad blanditiis. Deleniti facere aliquid omnis praesentium, placeat accusamus officia nisi illum esse eos eaque ipsa quia harum eligendi assumenda deserunt mollitia dolor quas aperiam? Autem quibusdam sit culpa ad ea odio voluptatum.'
+const Comment = ({comment}) => {
   const [fullRead, setFullRead] = useState(false);
-  const isCommentAuthor = true;
+  const authorname = comment.attributes.author.data.attributes.name;
+  const parsedDate = DateTime.fromISO(comment.attributes.createdAt).toFormat('ff');
+  console.log(comment)
+  const commentdescription = comment.attributes.description;
+
+  const userID = getIdFromLocalCookie();
   return (
     <div style={{marginBottom: 40}}>
       <div style={{display: 'flex'}}>
@@ -24,10 +29,10 @@ const Comment = () => {
               {authorname}
             </Typography>
             <Typography style={{fontSize: 12, fontFamily: `'Inter', 'sans-serif'`, marginTop: 1, marginLeft: 5}} >
-              {date}
+              {parsedDate}
             </Typography>
             {
-              isCommentAuthor && 
+              (userID===comment.attributes.author.data.id) &&
               <div style={{marginLeft: 'auto'}} className={styles.threedots}>
                 <BasicMenu />
               </div>

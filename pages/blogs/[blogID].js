@@ -10,14 +10,18 @@ import { parseCookies } from 'nookies'
 import { ApolloClient, gql, InMemoryCache } from '@apollo/client'
 import { useRouter } from 'next/router'
 import Layout from '../../components/Layout'
+import { GET_ALL_BLOGS, GET_BLOG_BY_ID } from '../../graphql/queries'
 
 
 
 const blogID = ({blogData}) => {
+  const [comments, setComments] = useState(blogData.attributes.comments.data);
+  const handleAddCommentToList = (comment) => {
+    setComments([comment, ...comments]);
+  }
   const title = blogData.attributes.title
   const description = blogData.attributes.description
-  const author = 'Dev Bilaspure';
-  const comments = [];
+  const author = blogData.attributes.author.data.attributes.name;
 
   return (
     <Layout>
@@ -49,10 +53,10 @@ const blogID = ({blogData}) => {
                 {comments.length} Comments
               </Typography>
               <div>
-                <WriteComment blogID={blogData.id} />
+                <WriteComment blogID={blogData.id} handleAddCommentToList={handleAddCommentToList}/>
               </div>
               <div style={{marginTop: 70, marginBottom: 70, paddingLeft: 10, paddingRight: 10}}>
-                <Comments />
+                <Comments comments={comments}/>
               </div>
             </div>
           </Grid>
@@ -117,32 +121,51 @@ const BasicMenu = () => {
   )
 }
 
-// export async function getStaticProps() {
-//   const router = useRouter();
-//   const { blogID } = router.query;
-//   const client = new ApolloClient({
-//     uri: 'localhost:1337/api/graphql',
-//     cache: new InMemoryCache()
-//   })
-//   const { data } = await client.query({ query: GET_BLOG_BY_ID(blodID), variables: {id: blogID} });
-//   console.log(data.blogpost.data);
+
+
+// export const getServerSideProps = async (ctx) => {
+//   const blogDataRes = await axios.get(`http://localhost:1337/api/blogposts/${ctx.params.blogID}`);
+  
+  
 //   return {
-//     props: {
-//       blogData: data.blogpost.data
-//     }
-//   }
-// }
+//     props: { 
+//       blogData: blogDataRes.data.data
+//     },
+//   };
+// };
 
-export const getServerSideProps = async (ctx) => {
-  const blogDataRes = await axios.get(`http://localhost:1337/api/blogposts/${ctx.params.blogID}`);
+
+export async function getStaticPaths() {
+  const client = new ApolloClient({
+    uri: 'http://localhost:1337/graphql',
+    cache: new InMemoryCache()
+  })
+
   
-  
+
+  const { data } = await client.query({ query: GET_ALL_BLOGS })
+
+  const paths = data.blogposts.data.map(blogpost => ({
+    params: {blogID: blogpost.id}
+  }))
   return {
-    props: { 
-      blogData: blogDataRes.data.data
-    },
-  };
-};
+    paths,
+    fallback: false, // can also be true or 'blocking'
+  }
+}
 
 
+export async function getStaticProps(ctx) {
+  const client = new ApolloClient({
+    uri: 'http://localhost:1337/graphql',
+    cache: new InMemoryCache()
+  })
+
+  const { data } = await client.query({ query: GET_BLOG_BY_ID, variables: {id: ctx.params.blogID} });
+  return {
+    props: {
+      blogData: data.blogpost.data
+    }, // will be passed to the page component as props
+  }
+}
 export default blogID

@@ -8,39 +8,39 @@ import Navbar from './Navbar';
 
 const Layout = ({children}) => {
   const [isUserAuthorized, setIsUserAuthorized]  = useState(false);
-  const router = useRouter();
-  useEffect(() => {
-    authCheck();
+  // const router = useRouter();
+  // useEffect(() => {
+  //   authCheck();
 
-    // on route change start - hide page content by setting authorized to false  
-    const hideContent = () => setIsUserAuthorized(false);
-    router.events.on('routeChangeStart', hideContent);
+  //   // on route change start - hide page content by setting authorized to false  
+  //   const hideContent = () => setIsUserAuthorized(false);
+  //   router.events.on('routeChangeStart', hideContent);
 
-    // on route change complete - run auth check 
-    router.events.on('routeChangeComplete', authCheck)
+  //   // on route change complete - run auth check 
+  //   router.events.on('routeChangeComplete', authCheck)
 
-    // unsubscribe from events in useEffect return function
-    return () => {
-        router.events.off('routeChangeStart', hideContent);
-        router.events.off('routeChangeComplete', authCheck);
-    }
-  }, [])
-  const authCheck = () => {
-    const user = getUserFromLocalCookie();
-    console.log({userjnjdn: user})
-    setIsUserAuthorized(true);
-    if(user) {
-      if(router.pathname==='/auth/login' || router.pathname==='/auth/signup') {
-        router.push('/');
-      }
-    } 
-    else {
-      if(router.pathname==='/write') {
-        setIsUserAuthorized(false)
-        router.push('/auth/login');
-      }
-    }
-  }
+  //   // unsubscribe from events in useEffect return function
+  //   return () => {
+  //       router.events.off('routeChangeStart', hideContent);
+  //       router.events.off('routeChangeComplete', authCheck);
+  //   }
+  // }, [])
+  // const authCheck = () => {
+  //   const user = getUserFromLocalCookie();
+  //   console.log({userjnjdn: user})
+  //   setIsUserAuthorized(true);
+  //   if(user) {
+  //     if(router.pathname==='/auth/login' || router.pathname==='/auth/signup') {
+  //       router.push('/');
+  //     }
+  //   } 
+  //   else {
+  //     if(router.pathname==='/write') {
+  //       setIsUserAuthorized(false)
+  //       router.push('/auth/login');
+  //     }
+  //   }
+  // }
   return(
     <>
       <Head>
@@ -53,7 +53,7 @@ const Layout = ({children}) => {
       <Navbar />
       <main>
         <div>
-          {isUserAuthorized && children}
+          {children}
         </div>
       </main>
     </>

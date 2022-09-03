@@ -2,26 +2,29 @@ import { Avatar, Button, CircularProgress, TextareaAutosize } from '@mui/materia
 import React, {  useState } from 'react'
 import styles from '../styles/WriteComment.module.css';
 import { useRouter } from 'next/router'
-import { parseCookies } from 'nookies';
 import axios from 'axios';
-import { v4 as uuidv4 } from 'uuid';
+import { checkUserLoggedIn, getIdFromLocalCookie, getTokenFromLocalCookie, getUsersNameFromLocalCookie } from '../lib/auth';
 
-const WriteComment = ({blogID}) => {
+const WriteComment = ({blogID, handleAddCommentToList}) => {
   const [comment, setComment] = useState('');
   const [isProcessing, setIsProcessing] = useState(false);
 
   const router = useRouter();
 
+  const userID = getIdFromLocalCookie();
+  const isUserLoggedIn = checkUserLoggedIn();
+  const jwt = getTokenFromLocalCookie();
+  const name = getUsersNameFromLocalCookie();
+
   const handleClickComment = async() => {
+    console.log({somedata: {userID, jwt, isUserLoggedIn}})
     setIsProcessing(true);
-    const jwt = parseCookies().jwt;
-    console.log('jwt here from writeComment: ' + jwt);
-    if(user) {
+    if(isUserLoggedIn) {
       console.log({blogID});
       if(comment) {
         const data = {
           description: comment,
-          author: user.id,
+          author: userID,
           blogpost: blogID
         }
         try {
@@ -34,8 +37,29 @@ const WriteComment = ({blogID}) => {
             }
           )
 
-          console.log(res.data);
+          const { createdAt, description } = res.data.data.attributes;
 
+          const commentData = {
+            id: res.data.data.id,
+            attributes: {
+              author: {
+                data: {
+                  id: userID,
+                  attributes: {
+                    name
+                  }
+                }
+              },
+              createdAt,
+              description
+            }
+          }
+
+          handleAddCommentToList(commentData);
+
+          console.log(res.data.data);
+
+          setComment('');
           setIsProcessing(false);
         }
         catch(error) {
@@ -46,9 +70,7 @@ const WriteComment = ({blogID}) => {
       }
     }
     else {
-      router.push({
-        pathname: '/auth/login'
-      })
+      router.push('/auth/login');
     }
   }
   return (
